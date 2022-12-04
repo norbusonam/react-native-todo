@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderColor: 'gray'
+    borderColor: 'lightgray'
   },
   todoText: {
     fontSize: 18
