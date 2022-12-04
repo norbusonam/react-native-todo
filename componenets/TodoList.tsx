@@ -23,7 +23,7 @@ const TodoItems: Todo[] = [
 
 const TodoList: React.FC = () => {
   return (
-    <FlatList data={TodoItems} keyExtractor={(item) => item.id} renderItem={(item) => <TodoListItem todo={item.item} />} />
+    <FlatList data={TodoItems} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} />} />
   );
 }
 
