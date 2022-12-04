@@ -1,11 +1,11 @@
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Header from './componenets/Header';
 
 export default function App() {
   return (
-    <View style={styles.appContainer}>
+    <SafeAreaView>
       <Header />
-    </View>
+    </SafeAreaView>
   );
 }
 

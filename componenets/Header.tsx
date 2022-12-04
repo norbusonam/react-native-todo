@@ -12,5 +12,6 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 32,
     fontWeight: 'bold',
+    padding: 16,
   },
 });
