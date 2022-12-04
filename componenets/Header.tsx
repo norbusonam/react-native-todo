@@ -1,6 +1,7 @@
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function Header() {
+const Header: React.FC = () => {
   return (
     <View>
       <Text style={styles.header}>Todo</Text>
@@ -15,3 +16,5 @@ const styles = StyleSheet.create({
     padding: 16,
   },
 });
+
+export default Header;

@@ -1,7 +1,8 @@
+import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Header from './componenets/Header';
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <SafeAreaView>
       <Header />
@@ -9,8 +10,4 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  appContainer: {
-    paddingTop: 10,
-  },
-});
+export default App;
