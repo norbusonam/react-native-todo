@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig } from 'react-native';
 import { Todo } from '../interfaces/Todo';
+import * as Haptics from 'expo-haptics';
 
 const layoutAnimConfig: LayoutAnimationConfig = {
   duration: 300,
@@ -41,18 +42,20 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
       // complete todo
       if (!props.todo.isCompleted) {
         setIsPendingComplete(true);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
         setTimeout(() => {
           props.toggleTodoCompletion(props.todo.id, true);
           setIsPendingComplete(false);
-          LayoutAnimation.configureNext(layoutAnimConfig)
+          LayoutAnimation.configureNext(layoutAnimConfig);
         }, 2000);
       // reactivate todo
       } else {
         setIsPendingReactivate(true);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         setTimeout(() => {
           props.toggleTodoCompletion(props.todo.id, false);
           setIsPendingReactivate(false);
-          LayoutAnimation.configureNext(layoutAnimConfig)
+          LayoutAnimation.configureNext(layoutAnimConfig);
         }, 2000);
       }
     }
