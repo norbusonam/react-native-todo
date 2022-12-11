@@ -5,12 +5,13 @@ import TodoListItem from './TodoListItem';
 
 interface TodoListProps {
   todos: Todo[];
+  completeTodo: (id: string) => void;
 }
 
 const TodoList: React.FC<TodoListProps> = (props) => {
   return (
     <View style={styles.todoListContainer}>
-      <FlatList data={props.todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} />} />
+      <FlatList data={props.todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} completeTodo={props.completeTodo}/>} />
     </View>
   );
 }

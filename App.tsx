@@ -25,10 +25,22 @@ const App: React.FC = () => {
     setTodos((prev) => [...prev, todo]);
   }
 
+  const completeTodo = (id: string) => {
+    setTodos((prev) => prev.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          isCompleted: true,
+        }
+      }
+      return todo;
+    }));
+  }
+
   return (
     <SafeAreaView style={styles.appContainer}>
       <Header />
-      <TodoList todos={getTodosToDisplay()} />
+      <TodoList todos={getTodosToDisplay()} completeTodo={completeTodo} />
       <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted} createNewTodo={createNewTodo} />
     </SafeAreaView>
   );
