@@ -3,27 +3,13 @@ import { FlatList } from 'react-native';
 import { Todo } from '../interfaces/Todo';
 import TodoListItem from './TodoListItem';
 
-const TodoItems: Todo[] = [
-  {
-    id: 'a',
-    title: 'Get groceries',
-    isCompleted: false,
-  },
-  {
-    id: 'b',
-    title: 'Finish homework',
-    isCompleted: false,
-  },
-  {
-    id: 'c',
-    title: 'Apply to jobs',
-    isCompleted: false,
-  },
-]
+interface TodoListProps {
+  todos: Todo[];
+}
 
-const TodoList: React.FC = () => {
+const TodoList: React.FC<TodoListProps> = (props) => {
   return (
-    <FlatList data={TodoItems} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} />} />
+    <FlatList data={props.todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} />} />
   );
 }
 
