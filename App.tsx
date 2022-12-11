@@ -21,11 +21,15 @@ const App: React.FC = () => {
     setIsViewingCompleted((prev) => !prev);
   }
 
+  const createNewTodo = (todo: Todo) => {
+    setTodos((prev) => [...prev, todo]);
+  }
+
   return (
     <SafeAreaView style={styles.appContainer}>
       <Header />
       <TodoList todos={getTodosToDisplay()} />
-      <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted}  />
+      <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted} createNewTodo={createNewTodo} />
     </SafeAreaView>
   );
 }
