@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, StyleProp, TextStyle } from 'react-native';
+import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig } from 'react-native';
 import { Todo } from '../interfaces/Todo';
+
+const layoutAnimConfig: LayoutAnimationConfig = {
+  duration: 300,
+  update: {
+    type: LayoutAnimation.Types.easeInEaseOut, 
+  },
+  delete: {
+    duration: 100,
+    type: LayoutAnimation.Types.easeInEaseOut,
+    property: LayoutAnimation.Properties.opacity,
+  },
+};
 
 export type Props = {
   todo: Todo;
@@ -32,6 +44,7 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
         setTimeout(() => {
           props.toggleTodoCompletion(props.todo.id, true);
           setIsPendingComplete(false);
+          LayoutAnimation.configureNext(layoutAnimConfig)
         }, 2000);
       // reactivate todo
       } else {
@@ -39,6 +52,7 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
         setTimeout(() => {
           props.toggleTodoCompletion(props.todo.id, false);
           setIsPendingReactivate(false);
+          LayoutAnimation.configureNext(layoutAnimConfig)
         }, 2000);
       }
     }
