@@ -3,17 +3,19 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const Header: React.FC = () => {
   return (
-    <View>
-      <Text style={styles.header}>Todo</Text>
+    <View style={styles.headerContainer}>
+      <Text style={styles.headerText}>Todo</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 32,
-    fontWeight: 'bold',
+  headerContainer: {
     padding: 16,
+  },
+  headerText: {
+    fontSize: 40,
+    fontWeight: 'bold',
   },
 });
 
