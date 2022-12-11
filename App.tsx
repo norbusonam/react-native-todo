@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import Footer from './componenets/Footer';
 import Header from './componenets/Header';
 import TodoList from './componenets/TodoList';
@@ -22,7 +22,6 @@ const TodoItems: Todo[] = [
     title: 'Apply to jobs',
     isCompleted: false,
   },
-
   {
     id: 'd',
     title: 'Study for exams',
@@ -45,12 +44,18 @@ const App: React.FC = () => {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.appContainer}>
       <Header />
       <TodoList todos={getTodosToDisplay()} />
       <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted}  />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  appContainer: {
+    flex: 1,
+  },
+});
 
 export default App;

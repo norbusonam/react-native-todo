@@ -8,7 +8,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = (props) => {
   return (
-    <View>
+    <View style={styles.footerContainer}>
       <Button title='New Todo'></Button>
       <Button title={props.isViewingCompleted ? 'Show active' : 'Show completed'} color={props.isViewingCompleted ? 'green' : 'red'} onPress={props.toggleIsViewingCompleted}></Button>
     </View>
@@ -16,6 +16,11 @@ const Footer: React.FC<FooterProps> = (props) => {
 }
 
 const styles = StyleSheet.create({
+  footerContainer: {
+    padding: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 });
 
 export default Footer;
