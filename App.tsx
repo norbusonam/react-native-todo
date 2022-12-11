@@ -5,6 +5,7 @@ import Header from './componenets/Header';
 import TodoList from './componenets/TodoList';
 import { Todo } from './interfaces/Todo';
 import { LongTodoList, ShortTodoList } from './data/InitialTodoLists';
+import { StatusBar } from 'expo-status-bar';
 
 const App: React.FC = () => {
 
@@ -39,6 +40,7 @@ const App: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.appContainer}>
+      <StatusBar />
       <Header isViewingCompleted={isViewingCompleted}/>
       <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} />
       <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted} createNewTodo={createNewTodo} />
