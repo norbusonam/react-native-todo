@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { Todo } from '../interfaces/Todo';
 import TodoListItem from './TodoListItem';
 
@@ -12,9 +12,7 @@ interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = (props) => {
   return (
-    <View style={styles.todoListContainer}>
-      <FlatList data={props.todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} toggleTodoCompletion={props.toggleTodoCompletion} updateTodoTitle={props.updateTodoTitle} deleteTodo={props.deleteTodo} />} />
-    </View>
+    <FlatList style={styles.todoListContainer} data={props.todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} toggleTodoCompletion={props.toggleTodoCompletion} updateTodoTitle={props.updateTodoTitle} deleteTodo={props.deleteTodo} />} />
   );
 }
 
