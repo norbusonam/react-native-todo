@@ -49,12 +49,16 @@ const App: React.FC = () => {
       return todo;
     }));
   }
+
+  const deleteTodo = (id: string) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  }
   
   return (
     <SafeAreaView style={styles.appContainer}>
       <StatusBar />
       <Header isViewingCompleted={isViewingCompleted}/>
-      <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} updateTodoTitle={updateTodoTitle} />
+      <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} updateTodoTitle={updateTodoTitle} deleteTodo={deleteTodo} />
       <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted} createNewTodo={createNewTodo} />
     </SafeAreaView>
   );

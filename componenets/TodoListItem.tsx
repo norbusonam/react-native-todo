@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig, Alert } from 'react-native';
 import { Todo } from '../interfaces/Todo';
 import * as Haptics from 'expo-haptics';
+import { Feather } from '@expo/vector-icons'; 
 
 const layoutAnimConfig: LayoutAnimationConfig = {
   duration: 300,
@@ -19,6 +20,7 @@ export type Props = {
   todo: Todo;
   toggleTodoCompletion: (id: string, isComplete: boolean) => void;
   updateTodoTitle: (id: string, title: string) => void;
+  deleteTodo: (id: string) => void;
 }
 
 const TodoListItem: React.FC<Props> = (props: Props) => {
@@ -37,7 +39,7 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
     todoStyles.push(styles.todoPendingReactivate);
   }
 
-  const handleLongPress = () => {
+  const handleLongPressTodo = () => {
     // check if action is already pending
     if (!isPendingComplete && !isPendingReactivate) {
       // complete todo
@@ -62,7 +64,7 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
     }
   }
 
-  const handlePress = () => {
+  const handlePressTodo = () => {
     if (!isPendingComplete && !isPendingReactivate && !props.todo.isCompleted) {
       Alert.prompt('Edit Todo', 'Enter a new title', (title) => {
         props.updateTodoTitle(props.todo.id, title);
@@ -70,9 +72,17 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
     }
   }
 
+  const handlePressTrash = () => {
+    props.deleteTodo(props.todo.id);
+    LayoutAnimation.configureNext(layoutAnimConfig);
+  }
+
   return (
     <View style={styles.todoContainer}>
-      <Text style={todoStyles} onLongPress={handleLongPress} onPress={handlePress}>{props.todo.title}</Text>
+      <Text style={todoStyles} onLongPress={handleLongPressTodo} onPress={handlePressTodo}>{props.todo.title}</Text>
+      {props.todo.isCompleted && !isPendingReactivate && (
+        <Feather name="trash" size={20} color="red" onPress={handlePressTrash} />
+      )}
     </View>
   );
 }
@@ -82,7 +92,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     borderBottomWidth: 1,
-    borderColor: 'lightgray'
+    borderColor: 'lightgray',
+    flexDirection: 'row',
   },
   todoComplete: {
     textDecorationLine: 'line-through'
@@ -96,7 +107,8 @@ const styles = StyleSheet.create({
     color: 'green'
   },
   todoText: {
-    fontSize: 18
+    fontSize: 18,
+    flexGrow: 1,
   }
 });
 
