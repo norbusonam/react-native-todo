@@ -1,10 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  isViewingCompleted: boolean;
+}
+
+const Header: React.FC<HeaderProps> = (props) => {
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>Todo</Text>
+      <Text style={styles.headerText}>{props.isViewingCompleted ? 'Completed' : 'Todo'}</Text>
     </View>
   );
 }

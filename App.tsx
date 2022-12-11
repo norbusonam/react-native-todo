@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.appContainer}>
-      <Header />
+      <Header isViewingCompleted={isViewingCompleted}/>
       <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} />
       <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted} createNewTodo={createNewTodo} />
     </SafeAreaView>

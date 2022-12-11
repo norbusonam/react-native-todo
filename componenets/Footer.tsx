@@ -22,7 +22,7 @@ const Footer: React.FC<FooterProps> = (props) => {
 
   return (
     <View style={styles.footerContainer}>
-      <Button title='New Todo' onPress={promptNewTodo}></Button>
+      <Button title='New Todo' onPress={promptNewTodo} disabled={props.isViewingCompleted}></Button>
       <Button title={props.isViewingCompleted ? 'Show active' : 'Show completed'} color={props.isViewingCompleted ? 'green' : 'red'} onPress={props.toggleIsViewingCompleted}></Button>
     </View>
   );
