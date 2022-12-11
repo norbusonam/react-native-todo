@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig } from 'react-native';
+import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig, Alert } from 'react-native';
 import { Todo } from '../interfaces/Todo';
 import * as Haptics from 'expo-haptics';
 
@@ -18,6 +18,7 @@ const layoutAnimConfig: LayoutAnimationConfig = {
 export type Props = {
   todo: Todo;
   toggleTodoCompletion: (id: string, isComplete: boolean) => void;
+  updateTodoTitle: (id: string, title: string) => void;
 }
 
 const TodoListItem: React.FC<Props> = (props: Props) => {
@@ -47,7 +48,7 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
           props.toggleTodoCompletion(props.todo.id, true);
           setIsPendingComplete(false);
           LayoutAnimation.configureNext(layoutAnimConfig);
-        }, 2000);
+        }, 1500);
       // reactivate todo
       } else {
         setIsPendingReactivate(true);
@@ -56,14 +57,22 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
           props.toggleTodoCompletion(props.todo.id, false);
           setIsPendingReactivate(false);
           LayoutAnimation.configureNext(layoutAnimConfig);
-        }, 2000);
+        }, 1500);
       }
+    }
+  }
+
+  const handlePress = () => {
+    if (!isPendingComplete && !isPendingReactivate && !props.todo.isCompleted) {
+      Alert.prompt('Edit Todo', 'Enter a new title', (title) => {
+        props.updateTodoTitle(props.todo.id, title);
+      }, undefined, props.todo.title);
     }
   }
 
   return (
     <View style={styles.todoContainer}>
-      <Text style={todoStyles} onLongPress={handleLongPress}>{props.todo.title}</Text>
+      <Text style={todoStyles} onLongPress={handleLongPress} onPress={handlePress}>{props.todo.title}</Text>
     </View>
   );
 }

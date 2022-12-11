@@ -38,11 +38,23 @@ const App: React.FC = () => {
     }));
   }
 
+  const updateTodoTitle = (id: string, title: string) => {
+    setTodos((prev) => prev.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          title
+        }
+      }
+      return todo;
+    }));
+  }
+  
   return (
     <SafeAreaView style={styles.appContainer}>
       <StatusBar />
       <Header isViewingCompleted={isViewingCompleted}/>
-      <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} />
+      <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} updateTodoTitle={updateTodoTitle} />
       <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted} createNewTodo={createNewTodo} />
     </SafeAreaView>
   );

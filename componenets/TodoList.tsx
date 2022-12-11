@@ -6,12 +6,13 @@ import TodoListItem from './TodoListItem';
 interface TodoListProps {
   todos: Todo[];
   toggleTodoCompletion: (id: string, isComplete: boolean) => void;
+  updateTodoTitle: (id: string, title: string) => void;
 }
 
 const TodoList: React.FC<TodoListProps> = (props) => {
   return (
     <View style={styles.todoListContainer}>
-      <FlatList data={props.todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} toggleTodoCompletion={props.toggleTodoCompletion}/>} />
+      <FlatList data={props.todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoListItem todo={item} toggleTodoCompletion={props.toggleTodoCompletion} updateTodoTitle={props.updateTodoTitle}/>} />
     </View>
   );
 }
