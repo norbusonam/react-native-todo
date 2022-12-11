@@ -4,24 +4,43 @@ import { Todo } from '../interfaces/Todo';
 
 export type Props = {
   todo: Todo;
-  completeTodo: (id: string) => void;
+  toggleTodoCompletion: (id: string, isComplete: boolean) => void;
 }
 
 const TodoListItem: React.FC<Props> = (props: Props) => {
 
   const [isPendingComplete, setIsPendingComplete] = useState(false);
+  const [isPendingReactivate, setIsPendingReactivate] = useState(false);
 
   const todoStyles: StyleProp<TextStyle> = [styles.todoText];
-  if (isPendingComplete || props.todo.isCompleted) {
+  if (props.todo.isCompleted) {
     todoStyles.push(styles.todoComplete);
+  }
+  if (isPendingComplete) {
+    todoStyles.push(styles.todoPendingComplete);
+  }
+  if (isPendingReactivate) {
+    todoStyles.push(styles.todoPendingReactivate);
   }
 
   const handleLongPress = () => {
-    if (!props.todo.isCompleted) {
-      setIsPendingComplete(true);
-      setTimeout(() => {
-        props.completeTodo(props.todo.id);
-      }, 3000);
+    // check if action is already pending
+    if (!isPendingComplete && !isPendingReactivate) {
+      // complete todo
+      if (!props.todo.isCompleted) {
+        setIsPendingComplete(true);
+        setTimeout(() => {
+          props.toggleTodoCompletion(props.todo.id, true);
+          setIsPendingComplete(false);
+        }, 2000);
+      // reactivate todo
+      } else {
+        setIsPendingReactivate(true);
+        setTimeout(() => {
+          props.toggleTodoCompletion(props.todo.id, false);
+          setIsPendingReactivate(false);
+        }, 2000);
+      }
     }
   }
 
@@ -41,6 +60,14 @@ const styles = StyleSheet.create({
   },
   todoComplete: {
     textDecorationLine: 'line-through'
+  },
+  todoPendingComplete: {
+    textDecorationLine: 'line-through',
+    color: 'red'
+  },
+  todoPendingReactivate: {
+    textDecorationLine: 'none',
+    color: 'green'
   },
   todoText: {
     fontSize: 18
