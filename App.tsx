@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import Footer from './componenets/Footer';
 import Header from './componenets/Header';
 import TodoList from './componenets/TodoList';
 import { Todo } from './interfaces/Todo';
-import { LongTodoList, ShortTodoList } from './data/InitialTodoLists';
 import { StatusBar } from 'expo-status-bar';
 import CenteredMessage from './componenets/CenteredMessage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const storeTodos = async (todos: Todo[]) => {
+  try {
+    await AsyncStorage.setItem('todos', JSON.stringify(todos));
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const App: React.FC = () => {
 
-  const [todos, setTodos] = useState(LongTodoList);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [isViewingCompleted, setIsViewingCompleted] = useState(false);
+
+  useEffect(() => {
+    const getTodos = async () => {
+      try {
+        const todos = await AsyncStorage.getItem('todos');
+        if (todos) {
+          setTodos(JSON.parse(todos));
+        } else {
+          setTodos([]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getTodos();
+  }, []);
+
+  // store todos in async storage
+  useEffect(() => {
+    storeTodos(todos);
+  }, [todos]);
 
   const getTodosToDisplay = (): Todo[] => {
     return isViewingCompleted ?
