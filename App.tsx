@@ -6,6 +6,7 @@ import TodoList from './componenets/TodoList';
 import { Todo } from './interfaces/Todo';
 import { LongTodoList, ShortTodoList } from './data/InitialTodoLists';
 import { StatusBar } from 'expo-status-bar';
+import CenteredMessage from './componenets/CenteredMessage';
 
 const App: React.FC = () => {
 
@@ -58,7 +59,13 @@ const App: React.FC = () => {
     <SafeAreaView style={styles.appContainer}>
       <StatusBar />
       <Header isViewingCompleted={isViewingCompleted}/>
-      <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} updateTodoTitle={updateTodoTitle} deleteTodo={deleteTodo} />
+      {
+        getTodosToDisplay().length > 0 
+          ? <TodoList todos={getTodosToDisplay()} toggleTodoCompletion={toggleTodoCompletion} updateTodoTitle={updateTodoTitle} deleteTodo={deleteTodo} />
+          : isViewingCompleted 
+            ? <CenteredMessage message='You have not completed any todos. Get to work!' />
+            : <CenteredMessage message='You do not have any todos. Press "New Todo" on the bottom left to get started!' />
+      }
       <Footer isViewingCompleted={isViewingCompleted} toggleIsViewingCompleted={toggleIsViewingCompleted} createNewTodo={createNewTodo} />
     </SafeAreaView>
   );
