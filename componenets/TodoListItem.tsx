@@ -67,7 +67,9 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
   const handlePressTodo = () => {
     if (!isPendingComplete && !isPendingReactivate && !props.todo.isCompleted) {
       Alert.prompt('Edit Todo', 'Enter a new title', (title) => {
-        props.updateTodoTitle(props.todo.id, title);
+        title = title.trim();
+        if (title && title.length > 0) props.updateTodoTitle(props.todo.id, title);
+        else Alert.alert('Invalid todo', 'Todo title cannot be empty!');
       }, undefined, props.todo.title);
     }
   }

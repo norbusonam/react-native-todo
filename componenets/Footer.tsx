@@ -12,11 +12,16 @@ const Footer: React.FC<FooterProps> = (props) => {
 
   const promptNewTodo = () => {
     Alert.prompt('New todo', 'Enter title', (title) => {
-      props.createNewTodo({
-        title,
-        isCompleted: false,
-        id: Math.random().toString(),
-      });
+      title = title.trim();
+      if (title && title.length > 0) {
+        props.createNewTodo({
+          title,
+          isCompleted: false,
+          id: Math.random().toString(),
+        });
+      } else { 
+        Alert.alert('Invalid todo', 'Todo title cannot be empty!');
+      }
     });
   }
 
