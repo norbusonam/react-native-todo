@@ -1,14 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, useColorScheme, View } from 'react-native';
 
 interface CenteredMessageProps {
   message: string;
 }
 
 const CenteredMessage: React.FC<CenteredMessageProps> = (props) => {
+
+  const colorScheme = useColorScheme();
+
+  const messageTextStyles: StyleProp<TextStyle> = [styles.messageText];
+  if (colorScheme === 'dark') {
+    messageTextStyles.push(styles.messageTextDark);
+  }
+
   return (
     <View style={styles.centeredMessageWrapper}>
-      <Text style={styles.messageText}>{props.message}</Text>
+      <Text style={messageTextStyles}>{props.message}</Text>
     </View>
   );
 }
@@ -23,7 +31,10 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 16,
     textAlign: 'center'
-  }
+  },
+  messageTextDark: {
+    color: 'white'
+  },
 });
 
 export default CenteredMessage;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig, Alert } from 'react-native';
+import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig, Alert, useColorScheme } from 'react-native';
 import { Todo } from '../interfaces/Todo';
 import * as Haptics from 'expo-haptics';
 import { Feather } from '@expo/vector-icons'; 
@@ -24,19 +24,28 @@ export type Props = {
 }
 
 const TodoListItem: React.FC<Props> = (props: Props) => {
-
+  
   const [isPendingComplete, setIsPendingComplete] = useState(false);
   const [isPendingReactivate, setIsPendingReactivate] = useState(false);
+  const colorScheme = useColorScheme();
 
-  const todoStyles: StyleProp<TextStyle> = [styles.todoText];
+  const todoTextStyles: StyleProp<TextStyle> = [styles.todoText];
   if (props.todo.isCompleted) {
-    todoStyles.push(styles.todoComplete);
+    todoTextStyles.push(styles.todoComplete);
   }
   if (isPendingComplete) {
-    todoStyles.push(styles.todoPendingComplete);
+    todoTextStyles.push(styles.todoPendingComplete);
   }
   if (isPendingReactivate) {
-    todoStyles.push(styles.todoPendingReactivate);
+    todoTextStyles.push(styles.todoPendingReactivate);
+  }
+  if (colorScheme === 'dark') {
+    todoTextStyles.push(styles.todoTextDark);
+  }
+
+  const todoContainerStyles: StyleProp<TextStyle> = [styles.todoContainer];
+  if (colorScheme === 'dark') {
+    todoContainerStyles.push(styles.todoContainerDark);
   }
 
   const handleLongPressTodo = () => {
@@ -80,8 +89,8 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <View style={styles.todoContainer}>
-      <Text style={todoStyles} onLongPress={handleLongPressTodo} onPress={handlePressTodo}>{props.todo.title}</Text>
+    <View style={todoContainerStyles}>
+      <Text style={todoTextStyles} onLongPress={handleLongPressTodo} onPress={handlePressTodo}>{props.todo.title}</Text>
       {props.todo.isCompleted && !isPendingReactivate && (
         <Feather name="trash" size={20} color="red" onPress={handlePressTrash} />
       )}
@@ -91,11 +100,15 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
 
 const styles = StyleSheet.create({
   todoContainer: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 10,
+    marginHorizontal: 10,
     paddingVertical: 16,
     borderBottomWidth: 1,
     borderColor: 'lightgray',
     flexDirection: 'row',
+  },
+  todoContainerDark: {
+    borderColor: 'slategray',
   },
   todoComplete: {
     textDecorationLine: 'line-through'
@@ -111,7 +124,10 @@ const styles = StyleSheet.create({
   todoText: {
     fontSize: 18,
     flexGrow: 1,
-  }
+  },
+  todoTextDark: {
+    color: 'white',
+  },
 });
 
 export default TodoListItem;

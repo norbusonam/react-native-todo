@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleProp, StyleSheet, useColorScheme, ViewStyle } from 'react-native';
 import Footer from './componenets/Footer';
 import Header from './componenets/Header';
 import TodoList from './componenets/TodoList';
@@ -18,8 +18,14 @@ const storeTodos = async (todos: Todo[]) => {
 
 const App: React.FC = () => {
 
+  const colorScheme = useColorScheme();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isViewingCompleted, setIsViewingCompleted] = useState(false);
+
+  const appContainerStyles: StyleProp<ViewStyle> = [styles.appContainer];
+  if (colorScheme === 'dark') {
+    appContainerStyles.push(styles.appContainerDark);
+  }
 
   useEffect(() => {
     const getTodos = async () => {
@@ -83,9 +89,9 @@ const App: React.FC = () => {
   const deleteTodo = (id: string) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   }
-  
+
   return (
-    <SafeAreaView style={styles.appContainer}>
+    <SafeAreaView style={appContainerStyles}>
       <StatusBar />
       <Header isViewingCompleted={isViewingCompleted}/>
       {
@@ -103,6 +109,9 @@ const App: React.FC = () => {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
+  },
+  appContainerDark: {
+    backgroundColor: 'black',
   },
 });
 

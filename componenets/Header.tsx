@@ -1,14 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, useColorScheme, View } from 'react-native';
 
 interface HeaderProps {
   isViewingCompleted: boolean;
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
+
+  const colorScheme = useColorScheme();
+  
+  const headerTextStyles: StyleProp<TextStyle> = [styles.headerText];
+  if (colorScheme === 'dark') {
+    headerTextStyles.push(styles.headerTextDark);
+  }
+
   return (
     <View style={styles.headerContainer}>
-      <Text style={styles.headerText}>{props.isViewingCompleted ? 'Completed' : 'Todo'}</Text>
+      <Text style={headerTextStyles}>{props.isViewingCompleted ? 'Completed' : 'Todo'}</Text>
     </View>
   );
 }
@@ -20,6 +28,9 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 40,
     fontWeight: 'bold',
+  },
+  headerTextDark: {
+    color: 'white',
   },
 });
 
