@@ -32,15 +32,15 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
   const todoTextStyles: StyleProp<TextStyle> = [styles.todoText];
   if (props.todo.isCompleted) {
     todoTextStyles.push(styles.todoComplete);
+  } 
+  if (colorScheme === 'dark') {
+    todoTextStyles.push(styles.todoTextDark);
   }
   if (isPendingComplete) {
     todoTextStyles.push(styles.todoPendingComplete);
   }
   if (isPendingReactivate) {
     todoTextStyles.push(styles.todoPendingReactivate);
-  }
-  if (colorScheme === 'dark') {
-    todoTextStyles.push(styles.todoTextDark);
   }
 
   const todoContainerStyles: StyleProp<TextStyle> = [styles.todoContainer];
