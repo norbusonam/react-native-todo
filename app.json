@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "react-native-todo",
-    "slug": "react-native-todo",
+    "slug": "todo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b5b20c1b-9004-4305-85c9-0063f96f4681"
+      }
+    },
+    "owner": "norbusonam"
   }
 }
