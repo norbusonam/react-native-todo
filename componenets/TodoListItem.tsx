@@ -1,20 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, StyleProp, TextStyle, LayoutAnimation, LayoutAnimationConfig, Alert, useColorScheme } from 'react-native';
+import { StyleSheet, View, Text, StyleProp, TextStyle, Alert, useColorScheme } from 'react-native';
 import { Todo } from '../interfaces/Todo';
 import * as Haptics from 'expo-haptics';
-import { Feather } from '@expo/vector-icons'; 
-
-const layoutAnimConfig: LayoutAnimationConfig = {
-  duration: 300,
-  update: {
-    type: LayoutAnimation.Types.easeInEaseOut, 
-  },
-  delete: {
-    duration: 100,
-    type: LayoutAnimation.Types.easeInEaseOut,
-    property: LayoutAnimation.Properties.opacity,
-  },
-};
+import { Feather } from '@expo/vector-icons';
 
 export type Props = {
   todo: Todo;
@@ -58,7 +46,6 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
         setTimeout(() => {
           props.toggleTodoCompletion(props.todo.id, true);
           setIsPendingComplete(false);
-          LayoutAnimation.configureNext(layoutAnimConfig);
         }, 1500);
       // reactivate todo
       } else {
@@ -67,7 +54,6 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
         setTimeout(() => {
           props.toggleTodoCompletion(props.todo.id, false);
           setIsPendingReactivate(false);
-          LayoutAnimation.configureNext(layoutAnimConfig);
         }, 1500);
       }
     }
@@ -85,7 +71,6 @@ const TodoListItem: React.FC<Props> = (props: Props) => {
 
   const handlePressTrash = () => {
     props.deleteTodo(props.todo.id);
-    LayoutAnimation.configureNext(layoutAnimConfig);
   }
 
   return (
