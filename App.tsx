@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleProp, StyleSheet, useColorScheme, ViewStyle } from 'react-native';
+import { LayoutAnimation, SafeAreaView, StyleProp, StyleSheet, useColorScheme, ViewStyle } from 'react-native';
 import Footer from './componenets/Footer';
 import Header from './componenets/Header';
 import TodoList from './componenets/TodoList';
@@ -7,6 +7,7 @@ import { Todo } from './interfaces/Todo';
 import { StatusBar } from 'expo-status-bar';
 import CenteredMessage from './componenets/CenteredMessage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TodoListChangeAnimation } from './animations/TodoListChangeAnimation';
 
 const storeTodos = async (todos: Todo[]) => {
   try {
@@ -60,9 +61,11 @@ const App: React.FC = () => {
 
   const createNewTodo = (todo: Todo) => {
     setTodos((prev) => [...prev, todo]);
+    LayoutAnimation.configureNext(TodoListChangeAnimation);
   }
 
   const toggleTodoCompletion = (id: string, isComplete: boolean) => {
+    LayoutAnimation.configureNext(TodoListChangeAnimation);
     setTodos((prev) => prev.map((todo) => {
       if (todo.id === id) {
         return {
@@ -87,6 +90,7 @@ const App: React.FC = () => {
   }
 
   const deleteTodo = (id: string) => {
+    LayoutAnimation.configureNext(TodoListChangeAnimation);
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   }
 
