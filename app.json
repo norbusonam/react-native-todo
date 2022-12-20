@@ -19,14 +19,16 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.norbusonam.todo"
+      "bundleIdentifier": "com.norbusonam.todo",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.norbusonam.todo"
+      "package": "com.norbusonam.todo",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
